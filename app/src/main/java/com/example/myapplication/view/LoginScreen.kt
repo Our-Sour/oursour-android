@@ -31,8 +31,10 @@ import androidx.compose.foundation.Image // Importa el componente Image
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 
 import androidx.compose.ui.res.painterResource // Importa para cargar recursos
@@ -102,6 +104,10 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(30.dp),
             singleLine = true, // Evita que se hagan saltos de línea
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = OurPeach40,
+                unfocusedBorderColor = OurPeach40
+            ),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next // Cambia el botón del teclado a "Siguiente"
             ),
@@ -123,10 +129,14 @@ fun LoginScreen(
             label = {
                 Text("Contraseña")
             },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().focusRequester(passwordFocusRequester),
             visualTransformation = PasswordVisualTransformation(),
             shape = RoundedCornerShape(30.dp),
             singleLine = true, // Evita que se hagan saltos de línea
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = OurPeach40,
+                unfocusedBorderColor = OurPeach40
+            ),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done // Cambia el botón del teclado a "Siguiente"
             ),
