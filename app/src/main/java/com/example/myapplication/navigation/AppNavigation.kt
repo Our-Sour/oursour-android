@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.view.HomeScreen
+import com.example.myapplication.view.FeedScreen
+import com.example.myapplication.view.IngredientsScreen
 import com.example.myapplication.view.LoginScreen
-import com.example.myapplication.view.IngredientsSreen
 
 @Composable
 fun AppNavigation(
@@ -26,9 +26,12 @@ fun AppNavigation(
             )
         }
         composable(Routes.HOME) {
-            IngredientsSreen(
-                onVerRecetasClick = { /* navController.navigate(Routes.FEED) */ }
+            IngredientsScreen(
+                onVerRecetasClick = {  navController.navigate(Routes.FEED)}
             )
+        }
+        composable(Routes.FEED) {
+            FeedScreen()
         }
     }
 }

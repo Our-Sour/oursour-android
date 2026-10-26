@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.navigation.AppNavigation
 import com.example.myapplication.ui.theme.MyApplicationTheme
-import com.example.myapplication.view.HomeScreen
+
 import com.example.myapplication.view.LoginScreen
 
 class MainActivity : ComponentActivity() {
