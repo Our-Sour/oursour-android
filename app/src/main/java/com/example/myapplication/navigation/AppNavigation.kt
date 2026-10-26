@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.view.HomeScreen
 import com.example.myapplication.view.LoginScreen
+import com.example.myapplication.view.IngredientsSreen
 
 @Composable
 fun AppNavigation(
@@ -25,7 +26,9 @@ fun AppNavigation(
             )
         }
         composable(Routes.HOME) {
-            HomeScreen()
+            IngredientsSreen(
+                onVerRecetasClick = { /* navController.navigate(Routes.FEED) */ }
+            )
         }
     }
 }
