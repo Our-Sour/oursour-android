@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
@@ -36,7 +37,7 @@ import com.example.myapplication.ui.theme.OurPeach40
 import com.example.myapplication.viewmodel.IngredientsViewModel
 
 @Composable
-fun IngredientsSreen(
+fun IngredientsScreen(
 
     onVerRecetasClick: () -> Unit, // Función para navegar al feed
     viewModel: IngredientsViewModel = viewModel() // Inyectamos el ViewModel
@@ -50,6 +51,7 @@ fun IngredientsSreen(
             .fillMaxSize()
             .statusBarsPadding() // ESTO EMPUJA EL CONTENIDO HACIA ABAJO DE LA HORA
             .padding(26.dp)
+            .navigationBarsPadding()
     ){
         // 1. Título
         Text(
@@ -102,7 +104,7 @@ fun IngredientsSreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable{
+                        .clickable {
                             // Buscamos el índice real en la lista original para actualizarlo
                             val indiceReal = viewModel.listaIngredientes.indexOf(ingrediente)
                             viewModel.toggleIngrediente(indiceReal)
@@ -143,7 +145,8 @@ fun IngredientsSreen(
                 .fillMaxWidth()
                 .height(56.dp),
             shape = RoundedCornerShape(30.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = OurPeach40)
+            colors = ButtonDefaults.buttonColors(containerColor = OurPeach40),
+
         ) {
             Text("Ver recetas →", color = Color.White, fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold)
         }

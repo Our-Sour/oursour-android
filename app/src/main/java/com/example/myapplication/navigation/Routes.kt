@@ -5,4 +5,6 @@ object Routes {
     const val HOME = "home"
 
     const val INGREDIENTES = "ingredientes"
+
+    const val FEED ="feed"
 }
