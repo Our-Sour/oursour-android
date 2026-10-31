@@ -28,13 +28,14 @@ import com.example.myapplication.viewmodel.RecetaMock
 @Composable
 fun FeedScreen(
     viewModel: FeedViewModel = viewModel(),
-    onNavigateToCarrito: () -> Unit = {} // 👈 Callback para ir al carrito
+    onNavigateToCarrito: () -> Unit = {}, // Callback para ir al carrito
+    onVerRecetaClick: () -> Unit = {} // Callback para ver la receta
 ) {
     // 💡 FUTURO API: viewModel.recetas vendrá de una llamada GET /api/recipes/
     val pagerState = rememberPagerState(pageCount = { viewModel.recetas.size })
 
     // Estado para controlar cuál receta abrió el modal
-    var recetaSeleccionadaParaModal by remember { mutableStateOf<RecetaMock?>(null) }
+    //var recetaSeleccionadaParaModal by remember { mutableStateOf<RecetaMock?>(null) }
 
     VerticalPager(
         state = pagerState,
@@ -125,16 +126,16 @@ fun FeedScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Botón para desplegar el modal de productos asociados
+                    // Botón para ir a ver receta
                     Button(
-                        onClick = { recetaSeleccionadaParaModal = receta },
+                        onClick = onVerRecetaClick,// accion de navegar a nueva pantalla
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp),
                         shape = RoundedCornerShape(30.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = OurPeach40)
                     ) {
-                        Text("Añadir productos", color = Color.White, fontWeight = FontWeight.Bold)
+                        Text("Ver Receta", color = Color.White, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -142,168 +143,9 @@ fun FeedScreen(
     }
 
     // =========================================================
-    // AQUÍ EMPIEZA EL MODAL (Dentro de FeedScreen, al final)
+    // AQUÍ EMPIEZA EL MODAL
     // =========================================================
-    recetaSeleccionadaParaModal?.let { recetaActual ->
-        var personas by remember { mutableStateOf(2) }
 
-        ModalBottomSheet(
-            onDismissRequest = { recetaSeleccionadaParaModal = null },
-            containerColor = Color.White,
-            shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp)
-            ) {
-                // Título dinámico y botón de cierre
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = recetaActual.titulo,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF3A332E)
-                    )
-                    IconButton(onClick = { recetaSeleccionadaParaModal = null }) {
-                        Icon(Icons.Default.Close, contentDescription = "Cerrar", tint = Color.Gray)
-                    }
-                }
 
-                Text(
-                    text = "Añade los productos asociados",
-                    fontSize = 12.sp,
-                    color = Color.Gray
-                )
 
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Tarjeta del Kit
-                Surface(
-                    color = Color(0xFFFDF8F4),
-                    shape = RoundedCornerShape(16.dp),
-                    border = BorderStroke(1.dp, Color(0xFFF6D4BB)),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "🎁 Kit de Cócteles", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-
-                            // Botones de conteo de personas
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                OutlinedButton(
-                                    onClick = { if (personas > 1) personas-- },
-                                    modifier = Modifier.size(32.dp),
-                                    contentPadding = PaddingValues(0.dp),
-                                    shape = RoundedCornerShape(8.dp),
-                                    colors = ButtonDefaults.outlinedButtonColors(contentColor = OurPeach40),
-                                    border = BorderStroke(1.dp, OurPeach40)
-                                ) {
-                                    Text("-", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                                }
-
-                                Text(
-                                    text = "$personas",
-                                    modifier = Modifier.padding(horizontal = 12.dp),
-                                    fontWeight = FontWeight.Bold,
-                                    color = OurPeach40,
-                                    fontSize = 16.sp
-                                )
-
-                                OutlinedButton(
-                                    onClick = { personas++ },
-                                    modifier = Modifier.size(32.dp),
-                                    contentPadding = PaddingValues(0.dp),
-                                    shape = RoundedCornerShape(8.dp),
-                                    colors = ButtonDefaults.outlinedButtonColors(contentColor = OurPeach40),
-                                    border = BorderStroke(1.dp, OurPeach40)
-                                ) {
-                                    Text("+", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                                }
-                            }
-                        }
-
-                        Text(
-                            text = "Cantidad de personas",
-                            fontSize = 12.sp,
-                            color = Color.Gray,
-                            modifier = Modifier.padding(top = 4.dp, bottom = 12.dp)
-                        )
-
-                        // Desglose dinámico
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text("${personas}× Producto Base", fontSize = 12.sp, color = Color.Gray)
-                            Text("$${personas * 1990}", fontSize = 12.sp, color = OurPeach40, fontWeight = FontWeight.Bold)
-                        }
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text("${personas}× Hielo Cristalino", fontSize = 12.sp, color = Color.Gray)
-                            Text("$${personas * 2490}", fontSize = 12.sp, color = OurPeach40, fontWeight = FontWeight.Bold)
-                        }
-
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp), color = Color.LightGray.copy(alpha = 0.5f))
-
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text("Total Kit ($personas personas)", fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                            Text("$${personas * 4480}", fontWeight = FontWeight.Bold, color = OurPeach40)
-                        }
-
-                        Button(
-                            onClick = { recetaSeleccionadaParaModal = null },
-                            modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = OurPeach40),
-                            shape = RoundedCornerShape(20.dp)
-                        ) {
-                            Text(text = "Agregar Kit al carro", color = Color.White, fontWeight = FontWeight.Bold)
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Productos individuales
-                Text(
-                    text = "PRODUCTOS INDIVIDUALES",
-                    color = OurPeach40,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    border = BorderStroke(1.dp, Color(0xFFF6D4BB)),
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.padding(12.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column {
-                            Text("Producto Base Asociado", fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                            Text("$1.990", fontSize = 12.sp, color = Color.Gray)
-                        }
-                        OutlinedButton(
-                            onClick = { },
-                            shape = RoundedCornerShape(12.dp),
-                            border = BorderStroke(1.dp, OurPeach40),
-                            colors = ButtonDefaults.outlinedButtonColors(contentColor = OurPeach40)
-                        ) {
-                            Text("+ Añadir", fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(32.dp))
-            }
-        }
-    }
 }
