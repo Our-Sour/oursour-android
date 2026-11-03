@@ -8,12 +8,10 @@ import com.example.myapplication.model.Usuario
 
 class LoginViewModel : ViewModel() {
 
-    private val usuarioValido = Usuario(
-        mail = "admin",
-        pass = "123"
-    )
+    // Los dos usuarios permitidos
+    private val usuarioAdmin = Usuario(mail = "admin", pass = "123")
+    private val usuarioConsumidor = Usuario(mail = "user", pass = "123")
 
-    // ESTADOS DE PANTALLA
     var mail by mutableStateOf("")
         private set
 
@@ -28,13 +26,14 @@ class LoginViewModel : ViewModel() {
         pass = nuevaPass
     }
 
-    fun validarLogin(): Boolean {
-        var validador = false
-
-        if(mail == usuarioValido.mail && pass == usuarioValido.pass) {
-            validador = true
+    // 👇 Esta función es la que el MainActivity está esperando
+    fun obtenerRol(): String? {
+        if (mail == usuarioAdmin.mail && pass == usuarioAdmin.pass) {
+            return "admin"
         }
-
-        return validador
+        if (mail == usuarioConsumidor.mail && pass == usuarioConsumidor.pass) {
+            return "consumidor"
+        }
+        return null // Si no coincide, no entra
     }
 }
