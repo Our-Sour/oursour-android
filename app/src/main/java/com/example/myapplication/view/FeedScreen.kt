@@ -32,7 +32,7 @@ import com.example.myapplication.viewmodel.Receta
 fun FeedScreen(
     viewModel: FeedViewModel = viewModel(),
     onNavigateToCarrito: () -> Unit = {},
-    onVerRecetaClick: () -> Unit = {}
+    onVerRecetaClick: (String) -> Unit = {}
 ) {
     val pagerState = rememberPagerState(pageCount = { viewModel.recetas.size })
 
@@ -105,7 +105,7 @@ fun FeedScreen(
 
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         Button(
-                            onClick = onVerRecetaClick,
+                            onClick = { onVerRecetaClick(receta.titulo) },
                             modifier = Modifier.weight(1f).height(50.dp),
                             shape = RoundedCornerShape(30.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = OurPeach40)
