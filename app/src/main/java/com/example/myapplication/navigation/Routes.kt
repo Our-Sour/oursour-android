@@ -11,5 +11,6 @@ object Routes {
 
     const val VERRECETA = "verReceta/{titulo}"
 
+    const val CARRITO = "carrito"
 
 }

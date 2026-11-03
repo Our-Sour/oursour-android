@@ -9,6 +9,7 @@ import com.example.myapplication.view.IngredientsScreen
 import com.example.myapplication.view.LoginScreen
 import com.example.myapplication.view.FavoritosScreen
 import com.example.myapplication.view.VerRecetaScreen
+import com.example.myapplication.view.CarritoScreen
 
 @Composable
 fun AppNavigation(
@@ -52,6 +53,11 @@ fun AppNavigation(
                 tituloReceta = tituloRecibido,
                 onVolverClick = { navController.popBackStack() }
             )
+        }
+
+        composable(Routes.CARRITO) {
+            //CarritoScreen( onVolverClick = { navController.popBackStack() } )
+            CarritoScreen()
         }
     }
 }
