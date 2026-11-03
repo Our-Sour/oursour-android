@@ -11,6 +11,7 @@ import com.example.myapplication.view.FavoritosScreen
 import com.example.myapplication.view.VerRecetaScreen
 import com.example.myapplication.view.CarritoScreen
 import com.example.myapplication.view.NotificacionesScreen
+import com.example.myapplication.view.PerfilScreen
 
 @Composable
 fun AppNavigation(
@@ -19,7 +20,7 @@ fun AppNavigation(
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Routes.NOTIFICACIONES
+        startDestination = Routes.PERFIL
 
     ){
         composable(Routes.LOGIN){
@@ -63,6 +64,13 @@ fun AppNavigation(
 
         composable(Routes.NOTIFICACIONES) {
             NotificacionesScreen()
+        }
+        composable(Routes.PERFIL){
+            PerfilScreen(
+                onCerrarSesionClick = {
+                    navController.navigate(Routes.LOGIN)
+                }
+            )
         }
     }
 }

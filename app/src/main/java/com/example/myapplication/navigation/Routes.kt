@@ -16,4 +16,6 @@ object Routes {
     const val CARRITO = "carrito"
 
     const val NOTIFICACIONES ="notificaciones"
+
+    const val PERFIL = "perfil"
 }
