@@ -21,7 +21,7 @@ fun AppNavigation(
         composable(Routes.FEED) {
             FeedScreen(
                 onNavigateToCarrito = { navController.navigate(Routes.CARRITO) },
-                onVerRecetaClick = { titulo -> navController.navigate("ver_receta/$titulo") }
+                onVerRecetaClick = { titulo -> navController.navigate("ver_receta") }
             )
         }
 

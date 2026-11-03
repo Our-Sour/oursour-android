@@ -11,7 +11,7 @@ object Routes {
     const val FEED ="feed"
     const val FAVORITOS = "favoritos"
 
-    const val VERRECETA = "verReceta/{titulo}"
+    const val VERRECETA = "ver_receta"
 
     const val CARRITO = "carrito"
 
