@@ -10,6 +10,7 @@ import com.example.myapplication.view.LoginScreen
 import com.example.myapplication.view.FavoritosScreen
 import com.example.myapplication.view.VerRecetaScreen
 import com.example.myapplication.view.CarritoScreen
+import com.example.myapplication.view.NotificacionesScreen
 
 @Composable
 fun AppNavigation(
@@ -18,7 +19,7 @@ fun AppNavigation(
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Routes.CARRITO
+        startDestination = Routes.NOTIFICACIONES
 
     ){
         composable(Routes.LOGIN){
@@ -58,6 +59,10 @@ fun AppNavigation(
         composable(Routes.CARRITO) {
             //CarritoScreen( onVolverClick = { navController.popBackStack() } )
             CarritoScreen()
+        }
+
+        composable(Routes.NOTIFICACIONES) {
+            NotificacionesScreen()
         }
     }
 }
