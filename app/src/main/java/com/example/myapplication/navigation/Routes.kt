@@ -7,4 +7,6 @@ object Routes {
     const val INGREDIENTES = "ingredientes"
 
     const val FEED ="feed"
+    const val FAVORITOS = "favoritos"
+
 }

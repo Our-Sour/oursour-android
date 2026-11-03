@@ -103,9 +103,7 @@ fun FeedScreen(
                     Text(text = receta.ingredientes, fontSize = 14.sp, color = Color.Gray)
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // 👇 AQUÍ ESTÁN LOS DOS BOTONES
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        // Botón 1: Ver Receta
                         Button(
                             onClick = onVerRecetaClick,
                             modifier = Modifier.weight(1f).height(50.dp),
@@ -115,7 +113,6 @@ fun FeedScreen(
                             Text("Ver Receta", color = Color.White, fontWeight = FontWeight.Bold)
                         }
 
-                        // Botón 2: Añadir Productos (Abre el Modal)
                         OutlinedButton(
                             onClick = {
                                 recetaSeleccionada = receta
@@ -134,67 +131,9 @@ fun FeedScreen(
     }
 
     // =========================================================
-    // AQUÍ EMPIEZA EL MODAL DE VALORACIONES Y COMPRA
-    // =========================================================
-    /*
-    if (mostrarModal && recetaSeleccionada != null) {
-        ModalBottomSheet(
-            onDismissRequest = { mostrarModal = false },
-            containerColor = Color.White,
-            shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
-        ) {
-            Column(modifier = Modifier.fillMaxWidth().padding(24.dp)) {
-                // Título y Botón Cerrar
-                Row(
-                    modifier = Modifier
-                    .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                )
-                    {
-                        Text(text = "Productos Our Sour", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(0xFF3A332E))
-                        IconButton(onClick = { mostrarModal = false }) {
-                            Icon(Icons.Default.Close, contentDescription = "Cerrar", tint = Color.Gray)
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-
-                //targenta producto our sour
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-
-                ){}
-
-                Text(text = recetaSeleccionada!!.titulo, fontSize = 14.sp, color = Color.Gray)
-                Spacer(modifier = Modifier.height(16.dp))
-
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-
-                // Botón para agregar al carro
-                Button(
-                    onClick = { mostrarModal = false },
-                    modifier = Modifier.fillMaxWidth().height(50.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = OurPeach40),
-                    shape = RoundedCornerShape(30.dp)
-                ) {
-                    Text("Añadir al carro", color = Color.White, fontWeight = FontWeight.Bold)
-                }
-            } // FIN COLUMNA
-        }// FIN BOTTON MODAL
-    }
-
-     */
-
-
-    // =========================================================
-    // AQUÍ EMPIEZA EL MODAL
+    // MODAL ESTILO "APP LÍDER"
     // =========================================================
     if (mostrarModal && recetaSeleccionada != null) {
-        // Estado para el contador de cantidad
         var cantidadProducto by remember { mutableStateOf(1) }
 
         ModalBottomSheet(
@@ -203,8 +142,6 @@ fun FeedScreen(
             shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
         ) {
             Column(modifier = Modifier.fillMaxWidth().padding(24.dp)) {
-
-                // Título y Botón Cerrar
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "Producto Our Sour", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(0xFF3A332E))
                     IconButton(onClick = { mostrarModal = false }) {
@@ -214,46 +151,23 @@ fun FeedScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // 👇 TARJETA DEL PRODUCTO (Estilo App Líder)
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Foto simulada del producto
+                Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Box(
-                        modifier = Modifier
-                            .size(80.dp)
-                            .background(Color(0xFFFDEADE), RoundedCornerShape(12.dp)),
+                        modifier = Modifier.size(80.dp).background(Color(0xFFFDEADE), RoundedCornerShape(12.dp)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("", fontSize = 40.sp) // Emoji como foto
+                        Text("🍋", fontSize = 40.sp)
                     }
 
                     Spacer(modifier = Modifier.width(16.dp))
 
-                    // Info y Precio
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "Our Sour Limón",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF3A332E)
-                        )
-                        Text(
-                            text = "Para tu ${recetaSeleccionada!!.titulo}", // Muestra la receta
-                            fontSize = 12.sp,
-                            color = Color.Gray
-                        )
+                        Text(text = "Our Sour Limón", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(0xFF3A332E))
+                        Text(text = "Para tu ${recetaSeleccionada!!.titulo}", fontSize = 12.sp, color = Color.Gray)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = "$${4990 * cantidadProducto}", // Precio dinámico
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = OurPeach40
-                        )
+                        Text(text = "$${4990 * cantidadProducto}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = OurPeach40)
                     }
 
-                    // Contador (+ y -)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         OutlinedButton(
                             onClick = { if (cantidadProducto > 1) cantidadProducto-- },
@@ -263,12 +177,7 @@ fun FeedScreen(
                             shape = RoundedCornerShape(8.dp)
                         ) { Text("-", color = Color.Black, fontSize = 16.sp) }
 
-                        Text(
-                            text = "$cantidadProducto",
-                            modifier = Modifier.padding(horizontal = 12.dp),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
-                        )
+                        Text(text = "$cantidadProducto", modifier = Modifier.padding(horizontal = 12.dp), fontWeight = FontWeight.Bold, fontSize = 16.sp)
 
                         OutlinedButton(
                             onClick = { cantidadProducto++ },
@@ -282,17 +191,13 @@ fun FeedScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Botón para agregar al carro
                 Button(
-                    onClick = {
-                        // Aquí a futuro puedes enviar 'cantidadProducto' a tu ViewModel del carrito
-                        mostrarModal = false
-                    },
+                    onClick = { mostrarModal = false },
                     modifier = Modifier.fillMaxWidth().height(50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = OurPeach40),
                     shape = RoundedCornerShape(30.dp)
                 ) {
-                    Text("Añadir al carro", color = Color.White, fontWeight = FontWeight.Bold)
+                    Text("Añadir $cantidadProducto al carro", color = Color.White, fontWeight = FontWeight.Bold)
                 }
             }
         }
