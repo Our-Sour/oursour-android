@@ -1,75 +1,49 @@
 package com.example.myapplication.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.view.FeedScreen
-import com.example.myapplication.view.IngredientsScreen
-import com.example.myapplication.view.LoginScreen
-import com.example.myapplication.view.FavoritosScreen
-import com.example.myapplication.view.VerRecetaScreen
-import com.example.myapplication.view.CarritoScreen
-import com.example.myapplication.view.NotificacionesScreen
-import com.example.myapplication.view.PerfilScreen
+import com.example.myapplication.view.*
 
 @Composable
 fun AppNavigation(
-
-){
-    val navController = rememberNavController()
+    navController: NavHostController, // 👈 Recibe esto
+    modifier: Modifier = Modifier,     // 👈 Recibe esto
+    onLogout: () -> Unit = {}          // 👈 Y recibe esto
+) {
     NavHost(
         navController = navController,
-        startDestination = Routes.PERFIL
-
-    ){
-        composable(Routes.LOGIN){
-            LoginScreen(
-                onLoginSuccess = {
-                    navController.navigate(Routes.HOME)
-                }
-            )
-        }
-        composable(Routes.HOME) {
-            IngredientsScreen(
-                onVerRecetasClick = {  navController.navigate(Routes.FEED)}
-            )
-        }
+        startDestination = Routes.FEED,
+        modifier = modifier
+    ) {
         composable(Routes.FEED) {
             FeedScreen(
-                onVerRecetaClick = { titulo ->
-                    navController.navigate("ver_receta/$titulo")
-                }
+                onNavigateToCarrito = { navController.navigate(Routes.CARRITO) },
+                onVerRecetaClick = { titulo -> navController.navigate("ver_receta/$titulo") }
             )
         }
-        composable(Routes.FAVORITOS) {
-            FavoritosScreen()
+
+        composable(Routes.INGREDIENTES) {
+            IngredientsScreen(onVerRecetasClick = { navController.navigate(Routes.FEED) })
         }
 
+        composable(Routes.FAVORITOS) { FavoritosScreen() }
+        composable(Routes.CARRITO) { CarritoScreen() }
+        composable(Routes.NOTIFICACIONES) { NotificacionesScreen() }
 
-        //  Recibimos el título en la pantalla de receta
-        composable("ver_receta/{titulo}") { backStackEntry ->
+        composable(Routes.VERRECETA) { backStackEntry ->
             val tituloRecibido = backStackEntry.arguments?.getString("titulo") ?: "Pisco Sour Clásico"
-
             VerRecetaScreen(
                 tituloReceta = tituloRecibido,
                 onVolverClick = { navController.popBackStack() }
             )
         }
 
-        composable(Routes.CARRITO) {
-            //CarritoScreen( onVolverClick = { navController.popBackStack() } )
-            CarritoScreen()
-        }
-
-        composable(Routes.NOTIFICACIONES) {
-            NotificacionesScreen()
-        }
-        composable(Routes.PERFIL){
+        composable(Routes.PERFIL) {
             PerfilScreen(
-                onCerrarSesionClick = {
-                    navController.navigate(Routes.LOGIN)
-                }
+                onCerrarSesionClick = onLogout // 👈 Aquí conectamos el botón de cerrar sesión
             )
         }
     }
