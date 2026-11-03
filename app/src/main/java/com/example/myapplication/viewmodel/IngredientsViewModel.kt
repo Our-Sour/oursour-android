@@ -19,14 +19,14 @@ class IngredientsViewModel: ViewModel() {
     // Al usar mutableStateListOf, cualquier cambio en la lista (como marcar un checkbox)
     // redibujará la pantalla automáticamente.
     val listaIngredientes = mutableStateListOf(
-        IngredienteItem("Pisco", "Destilados", "🥃"),
-        IngredienteItem("Vodka", "Destilados", "🍶"),
-        IngredienteItem("Ron Blanco", "Destilados", "🥃"),
-        IngredienteItem("Gin", "Destilados", "🌿"),
-        IngredienteItem("Tequila", "Destilados", "🌵"),
-        IngredienteItem("Limón", "Frutas", "🍋"),
-        IngredienteItem("Jarabe de Goma", "Jugos", "🍯"),
-        IngredienteItem("Hielo", "Jugos", "🧊"),
+        IngredienteItem("Pisco", "Destilados", ""),
+        IngredienteItem("Vodka", "Destilados", ""),
+        IngredienteItem("Ron Blanco", "Destilados", ""),
+        IngredienteItem("Gin", "Destilados", ""),
+        IngredienteItem("Tequila", "Destilados", ""),
+        IngredienteItem("Limón", "Frutas", ""),
+        IngredienteItem("Jarabe de Goma", "Jugos", ""),
+        IngredienteItem("Hielo", "Jugos", ""),
 
     )
     // 3. Función que se ejecuta cuando el usuario toca un ingrediente

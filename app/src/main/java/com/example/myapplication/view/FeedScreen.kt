@@ -156,14 +156,14 @@ fun FeedScreen(
                         modifier = Modifier.size(80.dp).background(Color(0xFFFDEADE), RoundedCornerShape(12.dp)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("🍋", fontSize = 40.sp)
+                        Text("", fontSize = 40.sp)
                     }
 
                     Spacer(modifier = Modifier.width(16.dp))
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(text = "Our Sour Limón", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(0xFF3A332E))
-                        Text(text = "Para tu ${recetaSeleccionada!!.titulo}", fontSize = 12.sp, color = Color.Gray)
+
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(text = "$${4990 * cantidadProducto}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = OurPeach40)
                     }
