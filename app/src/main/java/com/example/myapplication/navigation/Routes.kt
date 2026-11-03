@@ -9,4 +9,7 @@ object Routes {
     const val FEED ="feed"
     const val FAVORITOS = "favoritos"
 
+    const val VERRECETA = "verReceta/{titulo}"
+
+
 }

@@ -8,6 +8,7 @@ import com.example.myapplication.view.FeedScreen
 import com.example.myapplication.view.IngredientsScreen
 import com.example.myapplication.view.LoginScreen
 import com.example.myapplication.view.FavoritosScreen
+import com.example.myapplication.view.VerRecetaScreen
 
 @Composable
 fun AppNavigation(
@@ -32,10 +33,25 @@ fun AppNavigation(
             )
         }
         composable(Routes.FEED) {
-            FeedScreen()
+            FeedScreen(
+                onVerRecetaClick = { titulo ->
+                    navController.navigate("ver_receta/$titulo")
+                }
+            )
         }
         composable(Routes.FAVORITOS) {
             FavoritosScreen()
+        }
+
+
+        //  Recibimos el título en la pantalla de receta
+        composable("ver_receta/{titulo}") { backStackEntry ->
+            val tituloRecibido = backStackEntry.arguments?.getString("titulo") ?: "Pisco Sour Clásico"
+
+            VerRecetaScreen(
+                tituloReceta = tituloRecibido,
+                onVolverClick = { navController.popBackStack() }
+            )
         }
     }
 }
