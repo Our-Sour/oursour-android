@@ -1,5 +1,7 @@
 package com.example.myapplication.navigation
 
+import com.example.myapplication.viewmodel.Notificacion
+
 object Routes {
     const val LOGIN = "login"
     const val HOME = "home"
@@ -13,4 +15,5 @@ object Routes {
 
     const val CARRITO = "carrito"
 
+    const val NOTIFICACIONES ="notificaciones"
 }
