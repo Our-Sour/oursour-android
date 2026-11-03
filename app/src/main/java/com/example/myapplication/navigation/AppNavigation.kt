@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.view.FeedScreen
 import com.example.myapplication.view.IngredientsScreen
 import com.example.myapplication.view.LoginScreen
+import com.example.myapplication.view.FavoritosScreen
 
 @Composable
 fun AppNavigation(
@@ -32,6 +33,9 @@ fun AppNavigation(
         }
         composable(Routes.FEED) {
             FeedScreen()
+        }
+        composable(Routes.FAVORITOS) {
+            FavoritosScreen()
         }
     }
 }
