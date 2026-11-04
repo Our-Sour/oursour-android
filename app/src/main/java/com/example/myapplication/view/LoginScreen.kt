@@ -1,7 +1,7 @@
 package com.example.myapplication.view
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background // 👈 NUEVO IMPORT
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,65 +27,58 @@ import com.example.myapplication.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    onLoginSuccess: () -> Unit,
+    // 👇 AQUÍ ESTABA EL ERROR: Ahora recibe un String (el rol)
+    onLoginSuccess: (String) -> Unit,
     loginViewModel: LoginViewModel = viewModel()
 ) {
     val passwordFocusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
 
-    // Definimos el color del fondo oscuro elegante (Gris Cósmico)
     val fondoOscuro = Color(0xFF1E1B18)
-    // Color para los textos en modo oscuro (un blanco crema suave)
     val textoClaro = Color(0xFFF2ECFF)
 
     var ejecutarLogin = {
-        val validador = loginViewModel.mail.isNotBlank() && loginViewModel.pass.isNotBlank()
-        if (validador) {
-            onLoginSuccess()
+        // 👇 Llamamos a la función del ViewModel
+        val rolDetectado = loginViewModel.obtenerRol()
+
+        if (rolDetectado != null) {
+            onLoginSuccess(rolDetectado) // 👈 Le pasamos el rol al MainActivity
         } else {
-            println("Error: Debes ingresar correo y contraseña")
+            println("Error: Credenciales incorrectas")
         }
     }
 
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        // AQUÍ APLICAMOS EL FONDO OSCURO Y EL PADDING
         modifier = Modifier
             .fillMaxSize()
             .background(fondoOscuro)
-            .padding(52.dp)
+            .padding(32.dp)
     ) {
 
         Image(
             painter = painterResource(id = R.drawable.logooursour),
             contentDescription = "Logo de Our Sour",
             modifier = Modifier
-                .size(500.dp )
-
+                .size(180.dp)
+                .padding(bottom = 16.dp)
         )
 
         Text(
             text = "Bienvenido",
             fontSize = 25.sp,
-            color = textoClaro, // 👈 Texto en blanco/crema para que resalte
+            color = textoClaro,
             modifier = Modifier.padding(bottom = 20.dp)
-
         )
 
-        // Caja de texto: Correo
         OutlinedTextField(
             value = loginViewModel.mail,
-            onValueChange = {
-                loginViewModel.cambiarMail(it)
-            },
-            label = {
-                Text("Correo", color = OurPeach40) // Etiqueta naranja
-            },
+            onValueChange = { loginViewModel.cambiarMail(it) },
+            label = { Text("Correo", color = OurPeach40) },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(30.dp),
             singleLine = true,
-            // 👇 Hacemos que el texto que escribe el usuario sea claro
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = OurPeach40,
                 unfocusedBorderColor = OurPeach40.copy(alpha = 0.5f),
@@ -94,22 +87,15 @@ fun LoginScreen(
                 cursorColor = OurPeach40
             ),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            keyboardActions = KeyboardActions(
-                onNext = { passwordFocusRequester.requestFocus() }
-            )
+            keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() })
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Caja de texto: Contraseña
         OutlinedTextField(
             value = loginViewModel.pass,
-            onValueChange = {
-                loginViewModel.cambiarPass(it)
-            },
-            label = {
-                Text("Contraseña", color = OurPeach40)
-            },
+            onValueChange = { loginViewModel.cambiarPass(it) },
+            label = { Text("Contraseña", color = OurPeach40) },
             modifier = Modifier.fillMaxWidth().focusRequester(passwordFocusRequester),
             visualTransformation = PasswordVisualTransformation(),
             shape = RoundedCornerShape(30.dp),
@@ -136,10 +122,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth().height(52.dp),
             onClick = { ejecutarLogin() },
             shape = RoundedCornerShape(60.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = OurPeach40,
-                contentColor = Color.White
-            )
+            colors = ButtonDefaults.buttonColors(containerColor = OurPeach40, contentColor = Color.White)
         ) {
             Text("Iniciar Sesión", fontSize = 16.sp)
         }

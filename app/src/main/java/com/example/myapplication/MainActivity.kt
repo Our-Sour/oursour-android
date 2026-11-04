@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.view.AdminScreen
 import com.example.myapplication.view.LoginScreen
 import com.example.myapplication.view.MainScreen
 
