@@ -21,7 +21,8 @@ fun AppNavigation(
         composable(Routes.FEED) {
             FeedScreen(
                 onNavigateToCarrito = { navController.navigate(Routes.CARRITO) },
-                onVerRecetaClick = { titulo -> navController.navigate("ver_receta") }
+                onVerRecetaClick = { titulo -> navController.navigate("ver_receta") },
+                onNavigateToProductos = { navController.navigate("productos") }
             )
         }
 
@@ -46,5 +47,11 @@ fun AppNavigation(
                 onCerrarSesionClick = onLogout // 👈 Aquí conectamos el botón de cerrar sesión
             )
         }
+
+        // ... dentro del NavHost
+        composable("productos") {
+            ProductosScreen()
+        }
+
     }
 }
