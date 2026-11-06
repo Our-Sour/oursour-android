@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.StarBorder
@@ -32,7 +33,9 @@ import com.example.myapplication.viewmodel.Receta
 fun FeedScreen(
     viewModel: FeedViewModel = viewModel(),
     onNavigateToCarrito: () -> Unit = {},
-    onVerRecetaClick: (String) -> Unit = {}
+    onVerRecetaClick: (String) -> Unit = {} ,
+    onNavigateToProductos: () -> Unit = {} // 👈 Nuevo parámetro
+
 ) {
     val pagerState = rememberPagerState(pageCount = { viewModel.recetas.size })
 
@@ -53,7 +56,41 @@ fun FeedScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(receta.colorFondo))
+
         ) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Logo a la izquierda
+                Text(
+                    text = "Our Sour",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF3A332E)
+                )
+
+                // 👇 Botón de Tienda a la derecha
+                IconButton(
+                    onClick = onNavigateToProductos,
+                    modifier = Modifier
+                        .size(44.dp)
+                        .background(Color.White.copy(alpha = 0.9f), CircleShape)
+                ) {
+                    // Puedes usar Icons.Default.Store o ShoppingBag
+                    Icon(
+                        imageVector = Icons.Default.ShoppingBag,
+                        contentDescription = "Ir a la tienda",
+                        tint = OurPeach40
+                    )
+                }
+            }
+
             Text(
                 text = receta.emoji,
                 fontSize = 180.sp,
