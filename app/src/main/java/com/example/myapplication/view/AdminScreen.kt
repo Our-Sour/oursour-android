@@ -1,7 +1,6 @@
 package com.example.myapplication.view
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable // 👈 IMPORTANTE: Para que las tarjetas se puedan tocar
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -20,7 +19,9 @@ import com.example.myapplication.ui.theme.OurPeach40
 @Composable
 fun AdminScreen(
     onCerrarSesionClick: () -> Unit,
-    onNavigateToProductos: () -> Unit // 👈 Agregamos esta acción
+    onNavigateToProductos: () -> Unit,
+    onNavigateToMetricas: () -> Unit, // 👈 NUEVO
+    onNavigateToPedidos: () -> Unit   // 👈 NUEVO
 ) {
     val fondoOscuro = Color(0xFF1E1B18)
     val textoClaro = Color(0xFFF2ECFF)
@@ -45,22 +46,10 @@ fun AdminScreen(
             Text("Bienvenido, Administrador", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = textoClaro)
             Spacer(modifier = Modifier.height(24.dp))
 
-            // 👇 Aquí conectamos el botón a la acción
-            AdminCard(
-                titulo = "Dashboard de Métricas",
-                icono = "📊",
-                onClick = { /* Aquí iría el navigate a métricas en el futuro */ }
-            )
-            AdminCard(
-                titulo = "Gestión de Catálogo",
-                icono = "📦",
-                onClick = onNavigateToProductos // 👈 Esta es la que conecta con tu pantalla nueva
-            )
-            AdminCard(
-                titulo = "Monitoreo de Pedidos",
-                icono = "🧾",
-                onClick = { /* Aquí iría el navigate a pedidos */ }
-            )
+            // 👇 Conectadas
+            AdminCard(titulo = "Dashboard de Métricas", icono = "📊", onClick = onNavigateToMetricas)
+            AdminCard(titulo = "Gestión de Catálogo", icono = "📦", onClick = onNavigateToProductos)
+            AdminCard(titulo = "Monitoreo de Pedidos", icono = "🧾", onClick = onNavigateToPedidos)
         }
     }
 }
@@ -73,7 +62,7 @@ fun AdminCard(titulo: String, icono: String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { onClick() } // 👈 Hace que la tarjeta reaccione al toque
+            .clickable { onClick() }
     ) {
         Row(
             modifier = Modifier.padding(20.dp),
