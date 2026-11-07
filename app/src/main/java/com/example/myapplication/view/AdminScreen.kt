@@ -1,6 +1,7 @@
 package com.example.myapplication.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable // 👈 IMPORTANTE: Para que las tarjetas se puedan tocar
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -18,7 +19,8 @@ import com.example.myapplication.ui.theme.OurPeach40
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminScreen(
-    onCerrarSesionClick: () -> Unit
+    onCerrarSesionClick: () -> Unit,
+    onNavigateToProductos: () -> Unit // 👈 Agregamos esta acción
 ) {
     val fondoOscuro = Color(0xFF1E1B18)
     val textoClaro = Color(0xFFF2ECFF)
@@ -43,19 +45,35 @@ fun AdminScreen(
             Text("Bienvenido, Administrador", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = textoClaro)
             Spacer(modifier = Modifier.height(24.dp))
 
-            AdminCard(titulo = "Dashboard de Métricas", icono = "📊")
-            AdminCard(titulo = "Gestión de Catálogo", icono = "📦")
-            AdminCard(titulo = "Monitoreo de Pedidos", icono = "🧾")
+            // 👇 Aquí conectamos el botón a la acción
+            AdminCard(
+                titulo = "Dashboard de Métricas",
+                icono = "📊",
+                onClick = { /* Aquí iría el navigate a métricas en el futuro */ }
+            )
+            AdminCard(
+                titulo = "Gestión de Catálogo",
+                icono = "📦",
+                onClick = onNavigateToProductos // 👈 Esta es la que conecta con tu pantalla nueva
+            )
+            AdminCard(
+                titulo = "Monitoreo de Pedidos",
+                icono = "🧾",
+                onClick = { /* Aquí iría el navigate a pedidos */ }
+            )
         }
     }
 }
 
 @Composable
-fun AdminCard(titulo: String, icono: String) {
+fun AdminCard(titulo: String, icono: String, onClick: () -> Unit) {
     Surface(
         color = Color(0xFF2A2521),
         shape = RoundedCornerShape(16.dp),
-        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable { onClick() } // 👈 Hace que la tarjeta reaccione al toque
     ) {
         Row(
             modifier = Modifier.padding(20.dp),
