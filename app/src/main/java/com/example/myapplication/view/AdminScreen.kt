@@ -21,7 +21,8 @@ fun AdminScreen(
     onCerrarSesionClick: () -> Unit,
     onNavigateToProductos: () -> Unit,
     onNavigateToMetricas: () -> Unit, // 👈 NUEVO
-    onNavigateToPedidos: () -> Unit   // 👈 NUEVO
+    onNavigateToPedidos: () -> Unit,  // 👈 NUEVO
+    onNavigateToRecetas:() -> Unit,
 ) {
     val fondoOscuro = Color(0xFF1E1B18)
     val textoClaro = Color(0xFFF2ECFF)
@@ -50,6 +51,7 @@ fun AdminScreen(
             AdminCard(titulo = "Dashboard de Métricas", icono = "📊", onClick = onNavigateToMetricas)
             AdminCard(titulo = "Gestión de Catálogo", icono = "📦", onClick = onNavigateToProductos)
             AdminCard(titulo = "Monitoreo de Pedidos", icono = "🧾", onClick = onNavigateToPedidos)
+            AdminCard(titulo = "Gestión de Recetas", icono = "🍸", onClick = onNavigateToRecetas)
         }
     }
 }

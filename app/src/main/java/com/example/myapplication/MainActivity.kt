@@ -8,12 +8,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.view.AdminCrearRecetaScreen
 import com.example.myapplication.view.AdminProductosScreen
 import com.example.myapplication.view.AdminScreen
 import com.example.myapplication.view.LoginScreen
 import com.example.myapplication.view.MainScreen
 import com.example.myapplication.view.AdminMetricasScreen
 import com.example.myapplication.view.AdminPedidosScreen
+import com.example.myapplication.view.AdminRecetasScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -41,7 +43,9 @@ class MainActivity : ComponentActivity() {
                                     //  CONECTAMOS EL BOTÓN A LA NUEVA PANTALLA
                                     onNavigateToProductos = { adminNavController.navigate("admin_productos") },
                                     onNavigateToMetricas = { adminNavController.navigate("admin_metricas") },
-                                    onNavigateToPedidos = { adminNavController.navigate("admin_pedidos") }
+                                    onNavigateToPedidos = { adminNavController.navigate("admin_pedidos") },
+                                    onNavigateToRecetas = { adminNavController.navigate("admin_recetas") },
+                                   // onNavigateToCrearReceta = { adminNavController.navigate("admin_crear_receta") }
 
                                 )
                             }
@@ -62,6 +66,17 @@ class MainActivity : ComponentActivity() {
                             // 👇 Agregamos la ruta de métricas
                             composable("admin_pedidos") {
                                 AdminPedidosScreen(
+                                    onVolverClick = { adminNavController.popBackStack() }
+                                )
+                            }
+                            composable("admin_recetas") {
+                                AdminRecetasScreen(
+                                    onVolverClick = { adminNavController.popBackStack() },
+                                    onCrearRecetaClick = { adminNavController.navigate("admin_crear_receta") }
+                                )
+                            }
+                            composable("admin_crear_receta") {
+                                AdminCrearRecetaScreen(
                                     onVolverClick = { adminNavController.popBackStack() }
                                 )
                             }
