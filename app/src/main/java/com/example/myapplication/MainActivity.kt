@@ -13,6 +13,7 @@ import com.example.myapplication.view.AdminScreen
 import com.example.myapplication.view.LoginScreen
 import com.example.myapplication.view.MainScreen
 import com.example.myapplication.view.AdminMetricasScreen
+import com.example.myapplication.view.AdminPedidosScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -55,6 +56,12 @@ class MainActivity : ComponentActivity() {
                             // 👇 Agregamos la ruta de métricas
                             composable("admin_metricas") {
                                 AdminMetricasScreen(
+                                    onVolverClick = { adminNavController.popBackStack() }
+                                )
+                            }
+                            // 👇 Agregamos la ruta de métricas
+                            composable("admin_pedidos") {
+                                AdminPedidosScreen(
                                     onVolverClick = { adminNavController.popBackStack() }
                                 )
                             }
