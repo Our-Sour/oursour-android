@@ -12,6 +12,8 @@ import com.example.myapplication.view.AdminProductosScreen
 import com.example.myapplication.view.AdminScreen
 import com.example.myapplication.view.LoginScreen
 import com.example.myapplication.view.MainScreen
+import com.example.myapplication.view.AdminMetricasScreen
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +37,11 @@ class MainActivity : ComponentActivity() {
                             composable("admin_home") {
                                 AdminScreen(
                                     onCerrarSesionClick = { isLoggedIn = false },
-                                    // 👇 AQUÍ CONECTAMOS EL BOTÓN A LA NUEVA PANTALLA
-                                    onNavigateToProductos = { adminNavController.navigate("admin_productos") }
+                                    //  CONECTAMOS EL BOTÓN A LA NUEVA PANTALLA
+                                    onNavigateToProductos = { adminNavController.navigate("admin_productos") },
+                                    onNavigateToMetricas = { adminNavController.navigate("admin_metricas") },
+                                    onNavigateToPedidos = { adminNavController.navigate("admin_pedidos") }
+
                                 )
                             }
 
@@ -44,6 +49,12 @@ class MainActivity : ComponentActivity() {
                             composable("admin_productos") {
                                 AdminProductosScreen(
                                     // Al tocar "Volver", regresa al panel principal
+                                    onVolverClick = { adminNavController.popBackStack() }
+                                )
+                            }
+                            // 👇 Agregamos la ruta de métricas
+                            composable("admin_metricas") {
+                                AdminMetricasScreen(
                                     onVolverClick = { adminNavController.popBackStack() }
                                 )
                             }
